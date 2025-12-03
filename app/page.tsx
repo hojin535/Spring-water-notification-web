@@ -100,7 +100,7 @@ export default function Home() {
           {isSearching && (
             <div className="mt-4 flex items-center gap-2">
               <span className="text-sm text-gray-600">
-                "{searchTerm}" 검색 결과: {violations.length}건
+                &quot;{searchTerm}&quot; 검색 결과: {violations.length}건
               </span>
               <button
                 onClick={handleReset}
