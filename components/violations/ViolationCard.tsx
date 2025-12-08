@@ -16,7 +16,7 @@ export function ViolationCard({ violation, onClick }: ViolationCardProps) {
       {/* 업체명 및 제품명 */}
       <div className="mb-3">
         <h3 className="text-lg font-bold text-gray-800 mb-1">{violation.업체명}</h3>
-        <p className="text-sm text-gray-600">{violation.제품명}</p>
+        {/* <p className="text-sm text-gray-600">{violation.제품명}</p> */}
       </div>
 
       {/* 품목 뱃지 */}
@@ -32,6 +32,38 @@ export function ViolationCard({ violation, onClick }: ViolationCardProps) {
           {violation.처분명}
         </p>
       </div>
+
+      {/* 브랜드/제품명 정보 */}
+      {(violation.브랜드목록 && violation.브랜드목록.length > 0) || violation.제품명 ? (
+        <div className="mb-3 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg p-3 border border-orange-200">
+          <p className="text-xs text-orange-600 mb-2 font-semibold flex items-center gap-1">
+            <span>🏷️</span> {violation.브랜드목록 && violation.브랜드목록.length > 0 ? '관련 브랜드' : '제품명'}
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {violation.브랜드목록 && violation.브랜드목록.length > 0 ? (
+              <>
+                {violation.브랜드목록.slice(0, 3).map((brand) => (
+                  <span
+                    key={brand.id}
+                    className="inline-block px-2.5 py-1 bg-white text-orange-700 text-xs font-medium rounded-full border border-orange-300 shadow-sm"
+                  >
+                    {brand.브랜드명}
+                  </span>
+                ))}
+                {violation.브랜드목록.length > 3 && (
+                  <span className="inline-block px-2.5 py-1 bg-orange-600 text-white text-xs font-medium rounded-full">
+                    +{violation.브랜드목록.length - 3}개
+                  </span>
+                )}
+              </>
+            ) : (
+              <span className="inline-block px-2.5 py-1 bg-white text-orange-700 text-xs font-medium rounded-full border border-orange-300 shadow-sm">
+                {violation.제품명}
+              </span>
+            )}
+          </div>
+        </div>
+      ) : null}
 
       {/* 위반내용 미리보기 */}
       {violation.위반내용 && (

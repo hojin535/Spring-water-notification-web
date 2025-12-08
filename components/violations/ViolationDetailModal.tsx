@@ -90,6 +90,67 @@ export function ViolationDetailModal({ violation, onClose }: ViolationDetailModa
             </div>
           )}
 
+          {/* 브랜드/제품명 목록 */}
+          {(violation.브랜드목록 && violation.브랜드목록.length > 0) || violation.제품명 ? (
+            <div className="bg-gradient-to-br from-orange-50 to-yellow-50 border-2 border-orange-200 rounded-xl p-6 space-y-4">
+              <h3 className="font-bold text-orange-800 text-lg flex items-center gap-2">
+                <span>🏷️</span> 
+                {violation.브랜드목록 && violation.브랜드목록.length > 0 
+                  ? `관련 브랜드 (${violation.브랜드목록.length}개)` 
+                  : '제품 정보'}
+              </h3>
+
+              {violation.브랜드목록 && violation.브랜드목록.length > 0 ? (
+                <>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {violation.브랜드목록.map((brand) => (
+                      <div
+                        key={brand.id}
+                        className="bg-white rounded-lg p-4 shadow-sm border border-orange-200 hover:shadow-md transition-shadow"
+                      >
+                        <div className="flex items-start justify-between mb-2">
+                          <h4 className="font-bold text-gray-800">{brand.브랜드명}</h4>
+                          {brand.활성상태 ? (
+                            <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
+                              활성
+                            </span>
+                          ) : (
+                            <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
+                              비활성
+                            </span>
+                          )}
+                        </div>
+                        {brand.데이터출처 && (
+                          <p className="text-xs text-gray-500">
+                            출처: {brand.데이터출처}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-xs text-orange-600 italic">
+                    💡 이 업체에서 생산하는 브랜드들입니다.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <div className="bg-white rounded-lg p-4 shadow-sm border border-orange-200">
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-bold text-gray-800 text-lg">{violation.제품명}</h4>
+                      <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
+                        제품명
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-orange-600 italic">
+                    💡 브랜드 매핑 정보는 아직 등록되지 않았습니다.
+                  </p>
+                </>
+              )}
+            </div>
+          ) : null}
+
+
           {/* AI 설명 섹션 */}
           <div className="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200 rounded-xl p-6 space-y-4">
             <h3 className="font-bold text-purple-800 text-lg flex items-center gap-2">
