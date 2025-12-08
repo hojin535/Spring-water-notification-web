@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ViolationDetail } from '@/types/violations';
-import { fetchViolations, fetchViolationsByCompany } from '@/lib/violations-api';
+import { fetchViolations, fetchViolationsByCompany, fetchViolationsBySearch } from '@/lib/violations-api';
 import { ViolationCard } from '@/components/violations/ViolationCard';
 import { ViolationDetailModal } from '@/components/violations/ViolationDetailModal';
 import { SearchBar } from '@/components/violations/SearchBar';
@@ -53,7 +53,7 @@ export default function Home() {
     setIsSearching(true);
 
     try {
-      const data = await fetchViolationsByCompany(searchTerm);
+      const data = await fetchViolationsBySearch(searchTerm);
       setViolations(data);
       if (data.length === 0) {
         setError(`"${searchTerm}"에 대한 검색 결과가 없습니다.`);

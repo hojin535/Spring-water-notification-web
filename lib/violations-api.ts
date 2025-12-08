@@ -60,6 +60,35 @@ export async function fetchViolationsByCompany(
 }
 
 /**
+ * 업체명 또는 브랜드명으로 위반 내역 검색 (통합 검색)
+ * @param searchTerm 검색어 (업체명 또는 브랜드명)
+ * @returns 검색된 위반 목록
+ */
+export async function fetchViolationsBySearch(
+  searchTerm: string
+): Promise<ViolationDetail[]> {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/violations/search?q=${encodeURIComponent(searchTerm)}`
+    );
+    
+    if (!response.ok) {
+      if (response.status === 404) {
+        return [];
+      }
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error searching violations:', error);
+    throw error;
+  }
+}
+
+
+/**
  * AI 기반 위반 설명 요청
  * @param request 처분명과 위반내용
  * @returns AI 생성 설명 및 관련 전문용어

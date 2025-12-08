@@ -18,7 +18,7 @@ export function SearchBar({ searchTerm, onSearchChange, onSearch }: SearchBarPro
       <div className="flex gap-4">
         <div className="flex-1">
           <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-2">
-            업체명 검색
+            업체명 또는 브랜드명 검색
           </label>
           <input
             id="search"
@@ -26,7 +26,7 @@ export function SearchBar({ searchTerm, onSearchChange, onSearch }: SearchBarPro
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="업체명을 입력하세요"
+            placeholder="업체명 또는 브랜드명을 입력하세요 (예: 삼다수)"
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
           />
         </div>
