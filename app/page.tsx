@@ -56,7 +56,7 @@ export default function Home() {
       const data = await fetchViolationsBySearch(searchTerm);
       setViolations(data);
       if (data.length === 0) {
-        setError(`"${searchTerm}"에 대한 검색 결과가 없습니다.`);
+        setError(`위반 내역이 없습니다.`);
       }
     } catch (err) {
       setError('검색 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
