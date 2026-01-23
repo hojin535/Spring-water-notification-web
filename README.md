@@ -1,8 +1,24 @@
 # 먹는샘물 안심 알리미 - 이메일 구독 서비스
 
-폭우나 지진은 재난 문자가 오는데, 왜 매일 마시는 물의 오염은 아무도 알려주지 않을까요? 우리는 수질 위반이 발생해도, 뉴스가 나오기 전까진 오염된 물을 마셔야 하는 안전 사각지대에 살고 있습니다.
+## 💧 먹는샘물 안심 알리미
 
-'먹는샘물 안심 알리미'는 정부 데이터를 24시간 감시하여, 위반 즉시 재난 문자처럼 여러분께 경고를 보냅니다. 나와 내 가족의 생존을 위한 필수 앱, 이제 '알고 마시는 권리'를 챙기세요.
+본 프로젝트는 파편화된 수질 위반 데이터를 수집 및 가공하여, 소비자가 상표명만으로도 제조사의 위반 이력과 수원지의 안전성을 즉각 확인할 수 있는 환경을 구축하는 것을 목표로 합니다.
+
+## 📌 프로젝트 배경
+
+### 생수 시장의 정보 비대칭성과 안전 불감증<br/>
+
+높은 부적합률: 최근 6년간(2021년기준) 국내 먹는샘물 제조업체 61곳 중 절반에 가까운 28곳(46%)이 수질 기준 부적합 판정을 받았습니다.
+
+### OEM의 함정
+
+소비자에게 친숙한 대기업 브랜드 및 유통사 PB(쿠팡 탐사수, 이마트 피코크 등) 제품 상당수가 수질 위반 이력이 있는 업체에서 생산됩니다.
+
+### 정보 접근성 제한
+
+환경부의 행정처분 공고는 기간이 짧고(4개월), 제조업체명만 공개되어 소비자가 실시간으로 브랜드의 안전성을 확인하기 매우 어렵습니다.
+
+<p align="left"> <a href="https://www.youtube.com/watch?v=mglxbnccbeo"> <img src="https://img.shields.io/badge/Related%20News-YouTube-red?style=flat-square&logo=youtube" alt="Related News"> </a> <a href="https://github.com/hojin535/Spring-water-notification-crawling"> <img src="https://img.shields.io/badge/Backend-GitHub-black?style=flat-square&logo=github" alt="Backend Repo"> </a> </p>
 
 ## ✨ 주요 기능
 
@@ -14,38 +30,28 @@
 - 🎨 **모던한 UI**: 그라데이션과 애니메이션을 활용한 세련된 디자인을 제공합니다.
 - 📱 **반응형 디자인**: 모바일, 태블릿, 데스크톱 등 모든 기기에서 최적화된 화면을 지원합니다.
 
+## 🖥️ 화면 구성
+
+|                              메인 화면                              |                         구독 확인 모달                         |
+| :-----------------------------------------------------------------: | :------------------------------------------------------------: |
+| <img src="./public/readme/main.png" alt="Main Screen" width="400"/> | <img src="./public/readme/modal.png" alt="Modal" width="400"/> |
+
+|                          이메일 알림                           |                               구독 페이지                               |
+| :------------------------------------------------------------: | :---------------------------------------------------------------------: |
+| <img src="./public/readme/email.png" alt="Email" width="400"/> | <img src="./public/readme/emailpage.png" alt="Email Page" width="400"/> |
+
+### 🏗️ 시스템 아키텍처
+
+![System Architecture](./public/readme/SystemArchitecture.png)
+
 ## 🛠️ 기술 스택
 
-- **프레임워크**: [Next.js 14](https://nextjs.org/) (App Router)
-- **언어**: [TypeScript](https://www.typescriptlang.org/)
-- **스타일링**: CSS + Tailwind 유틸리티
+- **프레임워크**: Next.js 14(App Router)
+- **언어**: TypeScript
+- **스타일링**: Tailwind CSS
 - **상태 관리**: React Hooks
 - **백엔드**: FastAPI (Python)
 - **메일링**: Google SMTP
-
-## 🚀 시작하기
-
-### 1. 패키지 설치
-
-```bash
-npm install
-```
-
-### 2. 환경 변수 설정
-
-루트 디렉터리에 `.env.local` 파일을 생성하고 백엔드 API의 URL을 설정하세요.
-
-```env
-NEXT_PUBLIC_API_URL=http://localhost:8000
-```
-
-### 3. 개발 서버 실행
-
-```bash
-npm run dev
-```
-
-브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 애플리케이션을 확인할 수 있습니다.
 
 ## 📝 사용 방법
 
@@ -74,46 +80,4 @@ npm run dev
 │   └── api.ts                        # API 호출 함수
 └── types/
     └── api.ts                        # TypeScript 타입 정의
-```
-
-## 🔌 백엔드 연동
-
-이 프론트엔드 프로젝트는 다음의 백엔드 API 엔드포인트와 연동됩니다.
-
-- `POST /api/subscribe` - 이메일 구독 신청
-- `GET /api/subscribe/confirm/{token}` - 구독 확인
-- `GET /api/unsubscribe/{token}` - 구독 취소
-
-CORS 및 `BASE_URL` 설정이 백엔드 서버에 필요합니다.
-
-### CORS 설정 (FastAPI 예시)
-
-백엔드에서 프론트엔드 도메인을 허용하도록 CORS를 설정해야 합니다.
-
-```python
-# FastAPI 예시
-from fastapi.middleware.cors import CORSMiddleware
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # 프론트엔드 URL
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-```
-
-### BASE_URL 설정
-
-백엔드의 `.env` 파일에서 프론트엔드의 `BASE_URL`을 설정해야 합니다.
-
-```env
-BASE_URL=http://localhost:3000
-```
-
-## 📦 프로덕션 빌드
-
-```bash
-npm run build
-npm start
 ```
